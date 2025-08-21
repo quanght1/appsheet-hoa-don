@@ -243,6 +243,9 @@
                     <span class="text-lg font-bold text-red-600">Còn lại:</span>
                     <span class="text-lg font-bold text-red-600" id="con_lai">0</span>
                 </div>
+                <p class="text-base mt-2 text-center">
+                    Vui lòng thanh toán trước 23:59 ngày <span id="han_thanh_toan">-- Hạn thanh toán --</span> để tránh bị phạt nộp chậm.
+                </p>
             </div>
             
             <!-- Payment Information -->
@@ -256,10 +259,12 @@
                     </div>
                     <!-- Bank Details -->
                     <div class="space-y-2 text-center"> <!-- Centered bank details -->
-                        <div class="p-2 bg-blue-50 rounded-lg border border-blue-200 inline-block"> <!-- Inline-block to wrap content -->
-                            <p class="font-bold text-blue-800 text-sm" id="ten_ngan_hang">VPB</p>
-                            <p class="text-gray-700 text-sm">Tên tài khoản: <span class="font-semibold" id="chu_tai_khoan">-- Chủ tài khoản --</span></p>
-                            <p class="text-gray-700 text-sm">Số tài khoản: <span class="font-semibold" id="so_tai_khoan">-- Số tài khoản --</span></p>
+                        <!-- Thêm dòng chữ cảnh báo ở đây -->
+                        <p class="text-red-600 font-bold">Lưu ý kiểm tra tên người nhận!</p>
+                        <div class="p-2 bg-blue-50 rounded-lg border border-blue-200 inline-block">
+                          <p class="font-bold text-blue-800 text-sm" id="ten_ngan_hang">VPB</p>
+                          <p class="text-gray-700 text-sm">Tên tài khoản: <span class="font-semibold" id="chu_tai_khoan">-- Chủ tài khoản --</span></p>
+                          <p class="text-gray-700 text-sm">Số tài khoản: <span class="font-semibold" id="so_tai_khoan">-- Số tài khoản --</span></p>
                         </div>
                     </div>
                 </div>
@@ -402,3 +407,4 @@
     </script>
 </body>
 </html>
+
