@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hóa Đơn Tiền Phòng 05</title>
+    <title>Hóa Đơn Tiền Phòng</title>
     <!-- Import Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -82,6 +82,14 @@
                 padding-top: 0 !important;
                 border-top: none !important;
             }
+        }
+
+        /* Custom class to align the "Hạn thanh toán" and "Payment information" sections */
+        .align-payment-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
     </style>
 </head>
@@ -243,24 +251,27 @@
                     <span class="text-lg font-bold text-red-600">Còn lại:</span>
                     <span class="text-lg font-bold text-red-600" id="con_lai">0</span>
                 </div>
-                <p class="text-base mt-2 text-center">
+                <!-- Hạn thanh toán  -->
+                <div class="mt-2">
+                  <p class="text-base text-center">
                     Vui lòng thanh toán trước 23:59 ngày <span id="han_thanh_toan">-- Hạn thanh toán --</span> để tránh bị phạt nộp chậm.
-                </p>
+                  </p>
+                </div>
             </div>
             
             <!-- Payment Information -->
-            <div class="w-full md:w-1/2 mt-8 md:mt-0 md:border-t-0 pt-6 md:pt-0 payment-info-section">
+            <div class="w-full md:w-1/2 mt-8 md:mt-0 md:border-t-0 pt-6 md:pt-0 payment-info-section align-payment-info">
                 <!-- Removed: <h3 class="text-lg font-semibold text-center text-gray-800 mb-3">Thông tin thanh toán</h3> -->
                 <div class="flex flex-col items-center justify-center gap-5">
                     <!-- QR Code Placeholder -->
                     <div>
                         <img src="https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code" class="rounded-lg shadow-md w-[200px] h-[200px] mx-auto" id="qr_code">
-                        <p class="text-center text-xs text-gray-500 mt-1">Quét để chuyển khoản</p>
+                        <!-- Thêm dòng chữ cảnh báo ở đây -->
+                        <p class="text-red-600 font-bold" style="font-size: 0.9em;">Quét mã kiểm tra đúng tên người nhận!</p>
+                        <!-- <p class="text-center text-xs text-gray-500 mt-1">Quét để chuyển khoản</p> -->
                     </div>
                     <!-- Bank Details -->
                     <div class="space-y-2 text-center"> <!-- Centered bank details -->
-                        <!-- Thêm dòng chữ cảnh báo ở đây -->
-                        <p class="text-red-600 font-bold">Lưu ý kiểm tra tên người nhận!</p>
                         <div class="p-2 bg-blue-50 rounded-lg border border-blue-200 inline-block">
                           <p class="font-bold text-blue-800 text-sm" id="ten_ngan_hang">VPB</p>
                           <p class="text-gray-700 text-sm">Tên tài khoản: <span class="font-semibold" id="chu_tai_khoan">-- Chủ tài khoản --</span></p>
@@ -407,4 +418,3 @@
     </script>
 </body>
 </html>
-
