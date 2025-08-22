@@ -40,12 +40,14 @@
                 height: auto !important;
                 /* Ensure height adjusts to content */
 
-                /* Reduce base font size for print */
+                /* Reduce base font size for print to fit more content naturally */
                 font-size: 0.75em;
                 line-height: 1.1;
                 /* Tighten line height */
 
-                /* Remove aggressive scaling unless absolutely necessary. */
+                /* Remove aggressive scaling unless absolutely necessary, 
+                   as it can cause unexpected layout issues. 
+                   If content still overflows, consider adjusting padding/margins or font sizes more. */
                 transform: none !important;
                 transform-origin: top left;
             }
@@ -254,8 +256,7 @@
         </div>
 
         <!-- Combined Summary and Payment Information Section -->
-        <div class="mt-6 flex flex-col md:flex-row justify-between items-start summary-payment-section"
-            style="min-height:260px">
+        <div class="mt-6 flex flex-col md:flex-row justify-between items-start summary-payment-section">
             <!-- Summary Section -->
             <div class="w-full md:w-1/2 summary-section">
                 <div class="flex justify-between py-1">
@@ -295,16 +296,15 @@
             </div>
 
             <!-- Payment Information -->
-            <div class="w-full md:w-1/2 payment-info-section flex flex-col items-center"
-                style="min-height:135px; align-items: flex-end; text-align:right;">
+            <div class="w-full md:w-1/2 payment-info-section flex flex-col items-center justify-center">
                 <!-- QR Code -->
                 <div class="flex flex-col items-center justify-center gap-0">
                     <img src="https://placehold.co/240x240/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code"
                         class="rounded-lg shadow-md w-[240px] h-[240px] mx-auto" id="qr_code">
-                    <p class="text-red-600 font-bold text-center text-sm" style="font-size: 0.9em; margin: 0; padding: 0">Quét mã kiểm tra đúng tên người nhận!</p>
+                    <p class="text-red-600 font-bold text-center" style="font-size: 0.9em; margin-top: 0.2em; margin-bottom: 0.2em;">Quét mã kiểm tra đúng tên người nhận!</p>
 
                     <!-- Thêm thông tin tài khoản và số tài khoản -->
-                    <p class="text-center text-gray-700 text-sm mt-0 m-0 p-0" style = "line-height: 1.2;">
+                    <p class="text-center text-gray-700 text-sm mt-0">
                         <span class="font-semibold" id="chu_tai_khoan">Chủ tài khoản</span> - 
                         <span class="font-semibold" id="so_tai_khoan">Số tài khoản</span> - 
                       <span class="font-semibold" id="ten_ngan_hang_rut_gon">Tên NH</span>
@@ -553,7 +553,8 @@
                 },
                 'no_cu': {
                     id: 'no_cu',
-                    default: 0
+                    default: 0,
+                    format: 'currency'
                 },
                 'tong_cong': {
                     id: 'tong_cong',
@@ -613,7 +614,7 @@
                         }
                         // Apply formatting if specified
                         else if (elementInfo.format === 'currency') {
-                            value = formatCurrencyVND(amount);
+                            value = formatCurrencyVND(value);
                         } else if (elementInfo.id === 'ngay_tinh_hoa_don' && value === new Date()
                             .toLocaleDateString('vi-VN')) {
                             // If default date is used, make sure it's formatted correctly
