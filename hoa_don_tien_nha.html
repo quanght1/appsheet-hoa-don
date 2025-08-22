@@ -220,7 +220,7 @@
         </div>
 
         <!-- Combined Summary and Payment Information Section -->
-        <div class="mt-6 flex flex-col md:flex-row justify-between items-start gap-6 summary-payment-section">
+        <div class="mt-6 flex flex-col md:flex-row justify-between items-start summary-payment-section">
             <!-- Summary Section -->
             <div class="w-full md:w-1/2 summary-section">
                 <div class="flex justify-between py-1">
@@ -235,7 +235,7 @@
                     <span class="text-sm text-gray-600">Giảm trừ khác:</span>
                     <span class="font-medium text-gray-800 text-sm" id="giam_tru_khac">0</span>
                 </div>
-                   <div class="flex justify-between py-1">
+                <div class="flex justify-between py-1">
                     <span class="text-sm text-gray-600">Nợ cũ:</span>
                     <span class="font-medium text-gray-800 text-sm" id="no_cu">0</span>
                 </div>
@@ -243,7 +243,7 @@
                     <span class="text-base font-bold text-gray-900">Tổng cộng:</span>
                     <span class="text-base font-bold text-gray-900" id="tong_cong">0</span>
                 </div>
-                   <div class="flex justify-between py-1 text-blue-600">
+                <div class="flex justify-between py-1 text-blue-600">
                     <span class="font-semibold text-sm">Đã thanh toán:</span>
                     <span class="font-semibold text-sm" id="da_thanh_thong_tin">0</span>
                 </div>
@@ -260,24 +260,18 @@
             </div>
             
             <!-- Payment Information -->
-            <div class="w-full md:w-1/2 mt-8 md:mt-0 md:border-t-0 pt-6 md:pt-0 payment-info-section align-payment-info">
+            <div class="w-full md:w-1/2 payment-info-section flex items-center justify-center">
                 <!-- Removed: <h3 class="text-lg font-semibold text-center text-gray-800 mb-3">Thông tin thanh toán</h3> -->
                 <div class="flex flex-col items-center justify-center gap-5">
                     <!-- QR Code Placeholder -->
                     <div>
-                        <img src="https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code" class="rounded-lg shadow-md w-[200px] h-[200px] mx-auto" id="qr_code">
+                        <img src="https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code" class="rounded-lg shadow-md w-[300px] h-[300px] mx-auto" id="qr_code">
                         <!-- Thêm dòng chữ cảnh báo ở đây -->
-                        <p class="text-red-600 font-bold" style="font-size: 0.9em;">Quét mã kiểm tra đúng tên người nhận!</p>
+                        <p class="text-red-600 font-bold text-center" style="font-size: 0.9em;">Quét mã kiểm tra đúng tên người nhận!</p>
                         <!-- <p class="text-center text-xs text-gray-500 mt-1">Quét để chuyển khoản</p> -->
                     </div>
                     <!-- Bank Details -->
-                    <div class="space-y-2 text-center"> <!-- Centered bank details -->
-                        <div class="p-2 bg-blue-50 rounded-lg border border-blue-200 inline-block">
-                          <p class="font-bold text-blue-800 text-sm" id="ten_ngan_hang">VPB</p>
-                          <p class="text-gray-700 text-sm">Tên tài khoản: <span class="font-semibold" id="chu_tai_khoan">-- Chủ tài khoản --</span></p>
-                          <p class="text-gray-700 text-sm">Số tài khoản: <span class="font-semibold" id="so_tai_khoan">-- Số tài khoản --</span></p>
-                        </div>
-                    </div>
+                    <!-- bỏ phần thông tin tài khoản đi -->
                 </div>
             </div>
         </div>
@@ -384,10 +378,7 @@
                 'con_lai': { id: 'con_lai', default: 0, format: 'currency' },
                 'han_thanh_toan': { id: 'han_thanh_toan', default: '-- Hạn thanh toán --' },
                 // Payment Information
-                'qr_code': { id: 'qr_code', default: 'https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code' },
-                'ten_ngan_hang': { id: 'ten_ngan_hang', default: 'VPB' }, // New variable for bank name
-                'chu_tai_khoan': { id: 'chu_tai_khoan', default: 'NGUYEN VAN A' },
-                'so_tai_khoan': { id: 'so_tai_khoan', default: '1234567890' }
+                'qr_code': { id: 'qr_code', default: 'https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code' }
             };
 
             // Populate elements based on dataMap
