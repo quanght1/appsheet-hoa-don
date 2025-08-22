@@ -275,7 +275,7 @@
                     <span class="text-sm text-gray-600">Nợ cũ:</span>
                     <span class="font-medium text-gray-800 text-sm" id="no_cu">0</span>
                 </div>
-                <div class="flex justify-between py-2 border-t-2 border-gray-200">
+                <div class="flex justify-between py-2 border-t-2 border-gray-200" style="min-height: 58px;">
                     <span class="text-base font-bold text-gray-900" style="font-size: 1rem">Tổng cộng:</span>
                     <span class="text-base font-bold text-gray-900" style="font-size: 1rem" id="tong_cong">0</span>
                 </div>
@@ -283,14 +283,15 @@
                     <span class="font-semibold text-sm">Đã thanh toán:</span>
                     <span class="font-semibold text-sm" id="da_thanh_thong_tin">0</span>
                 </div>
-                <div class="flex justify-between py-2 bg-red-100 rounded-lg px-3 mt-2>
+                <div class="flex justify-between py-2 bg-red-100 rounded-lg px-3 mt-2 items-center"
+                    style="min-height: 58px">
                     <span class="text-lg font-bold text-red-600">Còn lại:</span>
                     <span class="text-lg font-bold text-red-600" id="con_lai">0</span>
                 </div>
                 <!-- Hạn thanh toán  -->
                 <div class="mt-2">
                     <p class="text-base text-center">
-                        Vui lòng thanh toán trước 23:59 ngày <span id="han_thanh_toan">-- Hạn TT --</span> để tránh bị phạt nộp chậm.
+                        Vui lòng thanh toán trước 23:59 ngày <span id="han_thanh_toan">Hạn TT</span> để tránh bị phạt nộp chậm.
                     </p>
                 </div>
             </div>
@@ -299,15 +300,15 @@
             <div class="w-full md:w-1/2 payment-info-section flex flex-col items-center justify-center">
                 <!-- QR Code -->
                 <div class="flex flex-col items-center justify-center gap-2">
-                    <img src="https://placehold.co/225x225/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code"
-                        class="rounded-lg shadow-md w-[225px] h-[225px] mx-auto" id="qr_code">
-                    <p class="text-red-600 font-bold text-center" style="font-size: 0.9em;">Quét mã kiểm tra đúng tên người nhận!</p>
+                    <img src="https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code"
+                        class="rounded-lg shadow-md w-[250px] h-[250px] mx-auto" id="qr_code">
+                    <p class="text-red-600 font-bold text-center" style="font-size: 0.9em; margin-bottom: 0.25em;">Quét mã kiểm tra đúng tên người nhận!</p>
 
                     <!-- Thêm thông tin tài khoản và số tài khoản -->
                     <p class="text-center text-gray-700 text-sm mt-0">
-                        <span class="font-semibold" id="chu_tai_khoan">--Chủ tài khoản--:</span>
-                         - 
-                        <span class="font-semibold" id="so_tai_khoan">--Số tài khoản--</span>
+                        <span class="font-semibold" id="chu_tai_khoan">Chủ tài khoản</span> - 
+                        <span class="font-semibold" id="so_tai_khoan">Số tài khoản</span> - 
+                      <span class="font-semibold" id="ten_ngan_hang_rut_gon">Tên NH</span>
                     </p>
                 </div>
             </div>
@@ -573,7 +574,7 @@
                 },
                 'han_thanh_toan': {
                     id: 'han_thanh_toan',
-                    default: '-- Hạn TT --'
+                    default: 'Hạn TT'
                 },
                 // Payment Information
                 'qr_code': {
@@ -582,11 +583,15 @@
                 },
                 'chu_tai_khoan': {
                     id: 'chu_tai_khoan',
-                    default: '--Chủ tài khoản--'
+                    default: 'Chủ tài khoản'
                 },
                 'so_tai_khoan': {
                     id: 'so_tai_khoan',
-                    default: '--Số tài khoản--'
+                    default: 'Số tài khoản'
+                },
+                  'ten_ngan_hang_rut_gon': {
+                    id: 'ten_ngan_hang_rut_gon',
+                    default: 'Tên NH'
                 }
             };
 
@@ -598,8 +603,18 @@
                     if (element) {
                         let value = params[key] || elementInfo.default;
 
+                         // Apply special handling for 'ten_ngan_hang_rut_gon'
+                        if (elementInfo.id === 'ten_ngan_hang_rut_gon') {
+                            if (params['ten_ngan_hang']) {
+                                const tenNganHang = params['ten_ngan_hang'];
+                                const firstWord = tenNganHang.split(' ')[0];
+                                value = firstWord;
+                            } else {
+                                value = elementInfo.default;
+                            }
+                        }
                         // Apply formatting if specified
-                        if (elementInfo.format === 'currency') {
+                        else if (elementInfo.format === 'currency') {
                             value = formatCurrencyVND(value);
                         } else if (elementInfo.id === 'ngay_tinh_hoa_don' && value === new Date()
                             .toLocaleDateString('vi-VN')) {
