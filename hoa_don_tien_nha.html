@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hóa Đơn Tiền Phòng</Title>
+    <title>Hóa Đơn Tiền Phòng</title>
     <!-- Import Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,74 +12,106 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+
         /* Custom print-specific adjustments for better A4 fit */
         @media print {
+
             body {
                 margin: 0;
                 padding: 0;
                 /* Ensure no unexpected margins on the body in print */
             }
+
             .invoice-container {
                 box-shadow: none !important;
                 border-radius: 0 !important;
                 /* Adjust padding for A4, typically around 1cm to 1.5cm */
-                padding: 1cm !important; /* Uniform padding for print */
-                width: 100% !important; /* Allow width to be flexible within print margins */
-                max-width: none !important; /* Remove max-width for print */
-                margin: 0 auto !important; /* Center on page */
-                
+                padding: 1cm !important;
+                /* Uniform padding for print */
+                width: 100% !important;
+                /* Allow width to be flexible within print margins */
+                max-width: none !important;
+                /* Remove max-width for print */
+                margin: 0 auto !important;
+                /* Center on page */
+
                 /* IMPORTANT: Remove min-height to prevent blank second page */
-                min-height: auto !important; 
-                height: auto !important; /* Ensure height adjusts to content */
+                min-height: auto !important;
+                height: auto !important;
+                /* Ensure height adjusts to content */
 
                 /* Reduce base font size for print to fit more content naturally */
-                font-size: 0.75em; 
-                line-height: 1.1; /* Tighten line height */
-                
+                font-size: 0.75em;
+                line-height: 1.1;
+                /* Tighten line height */
+
                 /* Remove aggressive scaling unless absolutely necessary, 
                    as it can cause unexpected layout issues. 
                    If content still overflows, consider adjusting padding/margins or font sizes more. */
-                transform: none !important; 
+                transform: none !important;
                 transform-origin: top left;
             }
+
             /* Further reduce font size for specific elements if still overflowing */
             .invoice-container h1 {
-                font-size: 1.5em !important; /* Smaller header */
+                font-size: 1.5em !important;
+                /* Smaller header */
             }
-            .invoice-container p, .invoice-container span, .invoice-container td, .invoice-container th {
-                font-size: 0.75em !important; /* Consistent smaller text */
+
+            .invoice-container p,
+            .invoice-container span,
+            .invoice-container td,
+            .invoice-container th {
+                font-size: 0.75em !important;
+                /* Consistent smaller text */
             }
+
             .invoice-container .text-xs {
-                    font-size: 0.6em !important; /* Even smaller for very small text */
+                font-size: 0.6em !important;
+                /* Even smaller for very small text */
             }
+
             .invoice-container .text-sm {
-                    font-size: 0.7em !important; /* Smaller for text-sm */
+                font-size: 0.7em !important;
+                /* Smaller for text-sm */
             }
+
             .invoice-container .text-base {
-                    font-size: 0.75em !important; /* Smaller for text-base */
+                font-size: 0.75em !important;
+                /* Smaller for text-base */
             }
+
             .invoice-container .text-lg {
-                    font-size: 0.8em !important; /* Smaller for text-lg */
+                font-size: 0.8em !important;
+                /* Smaller for text-lg */
             }
+
             .invoice-container .text-xl {
-                    font-size: 0.9em !important; /* Smaller for text-xl */
+                font-size: 0.9em !important;
+                /* Smaller for text-xl */
             }
 
             /* Adjust horizontal layout for print */
             .summary-payment-section {
-                flex-direction: row !important; /* Ensure horizontal for print */
-                align-items: flex-start !important; /* Align tops */
+                flex-direction: row !important;
+                /* Ensure horizontal for print */
+                align-items: flex-start !important;
+                /* Align tops */
                 justify-content: space-between !important;
-                margin-top: 1.5cm !important; /* Adjust margin */
+                margin-top: 1.5cm !important;
+                /* Adjust margin */
             }
 
-            .summary-section, .payment-info-section {
-                width: 48% !important; /* Distribute space */
+            .summary-section,
+            .payment-info-section {
+                width: 48% !important;
+                /* Distribute space */
                 max-width: 48% !important;
             }
 
             .payment-info-section {
-                margin-top: 0 !important; /* Remove top margin when horizontal */
+                margin-top: 0 !important;
+                /* Remove top margin when horizontal */
                 padding-top: 0 !important;
                 border-top: none !important;
             }
@@ -93,17 +126,18 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-100">
 
     <!-- The invoice container with adjusted padding and fixed width for A4 fit -->
     <div class="mx-auto bg-white rounded-lg shadow-lg invoice-container" style="width: 21cm; padding: 1.5cm 2cm;">
-        
+
         <!-- Header Section -->
         <header class="text-center mb-5">
             <h1 class="text-2xl font-bold text-gray-800">HÓA ĐƠN TIỀN PHÒNG</h1>
             <p class="text-sm text-gray-500" id="ky_hoa_don">-- Kỳ hóa đơn --</p>
         </header>
-        
+
         <!-- Tenant and Room Information -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-5 border-b pb-3">
             <div>
@@ -145,13 +179,14 @@
                         <td class="px-2 py-1 text-center text-sm">1</td>
                         <td class="px-2 py-1 text-right font-medium text-sm" id="thanh_tien_phong">0</td>
                     </tr>
-                    
+
                     <!-- Electricity -->
                     <tr>
                         <td class="px-2 py-1 font-medium text-sm">2.1</td>
                         <td class="px-2 py-1 text-sm">
                             Tiền điện
-                            <span class="block text-xs text-gray-500">Số đầu: <span id="so_dien_dau">0</span>, Số cuối: <span id="so_dien_cuoi">0</span></span>
+                            <span class="block text-xs text-gray-500">Số đầu: <span id="so_dien_dau">0</span>, Số cuối:
+                                <span id="so_dien_cuoi">0</span></span>
                         </td>
                         <td class="px-2 py-1 text-right text-sm" id="don_gia_dien">0</td>
                         <td class="px-2 py-1 text-center text-sm" id="so_dien">0</td>
@@ -163,16 +198,17 @@
                         <td class="px-2 py-1 font-medium text-sm">2.2</td>
                         <td class="px-2 py-1 text-sm">
                             Tiền nước
-                            <span class="block text-xs text-gray-500">Số đầu: <span id="so_nuoc_dau">0</span>, Số cuối: <span id="so_nuoc_cuoi">0</span></span>
+                            <span class="block text-xs text-gray-500">Số đầu: <span id="so_nuoc_dau">0</span>, Số cuối:
+                                <span id="so_nuoc_cuoi">0</span></span>
                         </td>
                         <td class="px-2 py-1 text-right text-sm" id="don_gia_nuoc">0</td>
                         <td class="px-2 py-1 text-center text-sm" id="so_nuoc">0</td>
                         <td class="px-2 py-1 text-right font-medium text-sm" id="thanh_tien_nuoc">0</td>
                     </tr>
-                    
+
                     <!-- Services -->
                     <tr class="bg-gray-50">
-                            <td class="px-2 py-1 font-bold text-sm" colspan="5">3. Dịch vụ</td>
+                        <td class="px-2 py-1 font-bold text-sm" colspan="5">3. Dịch vụ</td>
                     </tr>
                     <tr>
                         <td class="px-2 py-1 font-medium text-sm">3.1</td>
@@ -216,7 +252,7 @@
 
         <!-- Notes Section - moved above the combined summary/payment section -->
         <div class="mt-5 border-t pt-3 text-xs text-gray-600">
-               <p><span class="font-semibold">Ghi chú:</span> <span id="ghi_chu">-- Ghi chú --</span></p>
+            <p><span class="font-semibold">Ghi chú:</span> <span id="ghi_chu">-- Ghi chú --</span></p>
         </div>
 
         <!-- Combined Summary and Payment Information Section -->
@@ -239,39 +275,40 @@
                     <span class="text-sm text-gray-600">Nợ cũ:</span>
                     <span class="font-medium text-gray-800 text-sm" id="no_cu">0</span>
                 </div>
-                <div class="flex justify-between py-2 border-t-2 border-gray-200">
-                    <span class="text-base font-bold text-gray-900">Tổng cộng:</span>
-                    <span class="text-base font-bold text-gray-900" id="tong_cong">0</span>
+                <div class="flex justify-between py-2 border-t-2 border-gray-200" style="min-height: 58px;">
+                    <span class="text-base font-bold text-gray-900" style="font-size: 1rem">Tổng cộng:</span>
+                    <span class="text-base font-bold text-gray-900" style="font-size: 1rem" id="tong_cong">0</span>
                 </div>
                 <div class="flex justify-between py-1 text-blue-600">
                     <span class="font-semibold text-sm">Đã thanh toán:</span>
                     <span class="font-semibold text-sm" id="da_thanh_thong_tin">0</span>
                 </div>
-                <div class="flex justify-between py-2 bg-red-100 rounded-lg px-3 mt-2 items-center" style="min-height: 58px">
+                <div class="flex justify-between py-2 bg-red-100 rounded-lg px-3 mt-2 items-center"
+                    style="min-height: 58px">
                     <span class="text-lg font-bold text-red-600">Còn lại:</span>
                     <span class="text-lg font-bold text-red-600" id="con_lai">0</span>
                 </div>
                 <!-- Hạn thanh toán  -->
                 <div class="mt-2">
-                  <p class="text-base text-center">
-                    Vui lòng thanh toán trước 23:59 ngày <span id="han_thanh_toan">-- Hạn thanh toán --</span> để tránh bị phạt nộp chậm.
-                  </p>
+                    <p class="text-base text-center">
+                        Vui lòng thanh toán trước 23:59 ngày <span id="han_thanh_toan">-- Hạn TT --</span> để tránh bị phạt nộp chậm.
+                    </p>
                 </div>
             </div>
-            
+
             <!-- Payment Information -->
-            <div class="w-full md:w-1/2 payment-info-section flex items-center justify-center">
-                <!-- Removed: <h3 class="text-lg font-semibold text-center text-gray-800 mb-3">Thông tin thanh toán</h3> -->
-                <div class="flex flex-col items-center justify-center gap-5">
-                    <!-- QR Code Placeholder -->
-                    <div>
-                        <img src="https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code" class="rounded-lg shadow-md w-[300px] h-[300px] mx-auto" id="qr_code">
-                        <!-- Thêm dòng chữ cảnh báo ở đây -->
-                        <p class="text-red-600 font-bold text-center" style="font-size: 0.9em;">Quét mã kiểm tra đúng tên người nhận!</p>
-                        <!-- <p class="text-center text-xs text-gray-500 mt-1">Quét để chuyển khoản</p> -->
-                    </div>
-                    <!-- Bank Details -->
-                    <!-- bỏ phần thông tin tài khoản đi -->
+            <div class="w-full md:w-1/2 payment-info-section flex flex-col items-center justify-center">
+                <!-- QR Code -->
+                <div class="flex flex-col items-center justify-center gap-2">
+                    <img src="https://placehold.co/262x262/A0B0C0/FFFFFF?text=QR+Code" alt="QR Code"
+                        class="rounded-lg shadow-md w-[262px] h-[262px] mx-auto" id="qr_code">
+                    <p class="text-red-600 font-bold text-center" style="font-size: 0.9em;">Quét mã kiểm tra đúng tên người nhận!</p>
+
+                    <!-- Thêm thông tin tài khoản và số tài khoản -->
+                    <p class="text-center text-gray-700 text-sm mt-0">
+                        <span class="font-semibold" id="chu_tai_khoan">--Chủ tài khoản--:</span>
+                        <span class="font-semibold" id="so_tai_khoan">--Số tài khoản--</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -297,7 +334,7 @@
             const queryString = window.location.search;
             // Create a URLSearchParams object to easily parse the query string
             const urlParams = new URLSearchParams(queryString);
-            
+
             // Iterate over all parameters and store them in the params object
             for (const [key, value] of urlParams.entries()) {
                 params[key] = value;
@@ -313,72 +350,244 @@
             // Numbers that should be formatted as currency are explicitly marked
             const dataMap = {
                 // Header
-                'ky_hoa_don': { id: 'ky_hoa_don', default: 'Tháng X, Năm 20XX' },
+                'ky_hoa_don': {
+                    id: 'ky_hoa_don',
+                    default: 'Tháng X, Năm 20XX'
+                },
 
                 // Tenant and Room Information
-                'khach_thue': { id: 'khach_thue', default: 'Nguyễn Văn A' },
-                'nha_tro': { id: 'nha_tro', default: 'Nhà trọ ABC' },
-                'phong_tro': { id: 'phong_tro', default: 'Phòng 101' },
-                'ngay_tinh_hoa_don': { id: 'ngay_tinh_hoa_don', default: new Date().toLocaleDateString('vi-VN') },
+                'khach_thue': {
+                    id: 'khach_thue',
+                    default: 'Nguyễn Văn A'
+                },
+                'nha_tro': {
+                    id: 'nha_tro',
+                    default: 'Nhà trọ ABC'
+                },
+                'phong_tro': {
+                    id: 'phong_tro',
+                    default: 'Phòng 101'
+                },
+                'ngay_tinh_hoa_don': {
+                    id: 'ngay_tinh_hoa_don',
+                    default: new Date().toLocaleDateString('vi-VN')
+                },
 
                 // Invoice Details Table - Rental Fee
-                'don_gia_phong': { id: 'don_gia_phong', default: 0, format: 'currency' },
-                'thanh_tien_phong': { id: 'thanh_tien_phong', default: 0, format: 'currency' },
+                'don_gia_phong': {
+                    id: 'don_gia_phong',
+                    default: 0,
+                    format: 'currency'
+                },
+                'thanh_tien_phong': {
+                    id: 'thanh_tien_phong',
+                    default: 0,
+                    format: 'currency'
+                },
 
                 // Invoice Details Table - Electricity
-                'so_dien_dau': { id: 'so_dien_dau', default: 0 },
-                'so_dien_cuoi': { id: 'so_dien_cuoi', default: 0 },
-                'don_gia_dien': { id: 'don_gia_dien', default: 0, format: 'currency' },
-                'so_dien': { id: 'so_dien', default: 0 }, // Not currency
-                'thanh_tien_dien': { id: 'thanh_tien_dien', default: 0, format: 'currency' },
+                'so_dien_dau': {
+                    id: 'so_dien_dau',
+                    default: 0
+                },
+                'so_dien_cuoi': {
+                    id: 'so_dien_cuoi',
+                    default: 0
+                },
+                'don_gia_dien': {
+                    id: 'don_gia_dien',
+                    default: 0,
+                    format: 'currency'
+                },
+                'so_dien': {
+                    id: 'so_dien',
+                    default: 0
+                }, // Not currency
+                'thanh_tien_dien': {
+                    id: 'thanh_tien_dien',
+                    default: 0,
+                    format: 'currency'
+                },
 
                 // Invoice Details Table - Water
-                'so_nuoc_dau': { id: 'so_nuoc_dau', default: 0 },
-                'so_nuoc_cuoi': { id: 'so_nuoc_cuoi', default: 0 },
-                'don_gia_nuoc': { id: 'don_gia_nuoc', default: 0, format: 'currency' },
-                'so_nuoc': { id: 'so_nuoc', default: 0 }, // Not currency
-                'thanh_tien_nuoc': { id: 'thanh_tien_nuoc', default: 0, format: 'currency' },
+                'so_nuoc_dau': {
+                    id: 'so_nuoc_dau',
+                    default: 0
+                },
+                'so_nuoc_cuoi': {
+                    id: 'so_nuoc_cuoi',
+                    default: 0
+                },
+                'don_gia_nuoc': {
+                    id: 'don_gia_nuoc',
+                    default: 0,
+                    format: 'currency'
+                },
+                'so_nuoc': {
+                    id: 'so_nuoc',
+                    default: 0
+                }, // Not currency
+                'thanh_tien_nuoc': {
+                    id: 'thanh_tien_nuoc',
+                    default: 0,
+                    format: 'currency'
+                },
 
                 // Invoice Details Table - Services
-                'dich_vu_1': { id: 'dich_vu_1', default: 'Dịch vụ Internet' },
-                'dich_vu_1_dg': { id: 'dich_vu_1_dg', default: 0, format: 'currency' },
-                'dich_vu_1_sl': { id: 'dich_vu_1_sl', default: 0 },
-                'dich_vu_1_tt': { id: 'dich_vu_1_tt', default: 0, format: 'currency' },
+                'dich_vu_1': {
+                    id: 'dich_vu_1',
+                    default: 'Dịch vụ Internet'
+                },
+                'dich_vu_1_dg': {
+                    id: 'dich_vu_1_dg',
+                    default: 0,
+                    format: 'currency'
+                },
+                'dich_vu_1_sl': {
+                    id: 'dich_vu_1_sl',
+                    default: 0
+                },
+                'dich_vu_1_tt': {
+                    id: 'dich_vu_1_tt',
+                    default: 0,
+                    format: 'currency'
+                },
 
-                'dich_vu_2': { id: 'dich_vu_2', default: 'Dịch vụ vệ sinh' },
-                'dich_vu_2_dg': { id: 'dich_vu_2_dg', default: 0, format: 'currency' },
-                'dich_vu_2_sl': { id: 'dich_vu_2_sl', default: 0 },
-                'dich_vu_2_tt': { id: 'dich_vu_2_tt', default: 0, format: 'currency' },
+                'dich_vu_2': {
+                    id: 'dich_vu_2',
+                    default: 'Dịch vụ vệ sinh'
+                },
+                'dich_vu_2_dg': {
+                    id: 'dich_vu_2_dg',
+                    default: 0,
+                    format: 'currency'
+                },
+                'dich_vu_2_sl': {
+                    id: 'dich_vu_2_sl',
+                    default: 0
+                },
+                'dich_vu_2_tt': {
+                    id: 'dich_vu_2_tt',
+                    default: 0,
+                    format: 'currency'
+                },
 
-                'dich_vu_3': { id: 'dich_vu_3', default: 'Dịch vụ giữ xe' },
-                'dich_vu_3_dg': { id: 'dich_vu_3_dg', default: 0, format: 'currency' },
-                'dich_vu_3_sl': { id: 'dich_vu_3_sl', default: 0 },
-                'dich_vu_3_tt': { id: 'dich_vu_3_tt', default: 0, format: 'currency' },
+                'dich_vu_3': {
+                    id: 'dich_vu_3',
+                    default: 'Dịch vụ giữ xe'
+                },
+                'dich_vu_3_dg': {
+                    id: 'dich_vu_3_dg',
+                    default: 0,
+                    format: 'currency'
+                },
+                'dich_vu_3_sl': {
+                    id: 'dich_vu_3_sl',
+                    default: 0
+                },
+                'dich_vu_3_tt': {
+                    id: 'dich_vu_3_tt',
+                    default: 0,
+                    format: 'currency'
+                },
 
-                'dich_vu_4': { id: 'dich_vu_4', default: 'Dịch vụ khác 1' },
-                'dich_vu_4_dg': { id: 'dich_vu_4_dg', default: 0, format: 'currency' },
-                'dich_vu_4_sl': { id: 'dich_vu_4_sl', default: 0 },
-                'dich_vu_4_tt': { id: 'dich_vu_4_tt', default: 0, format: 'currency' },
+                'dich_vu_4': {
+                    id: 'dich_vu_4',
+                    default: 'Dịch vụ khác 1'
+                },
+                'dich_vu_4_dg': {
+                    id: 'dich_vu_4_dg',
+                    default: 0,
+                    format: 'currency'
+                },
+                'dich_vu_4_sl': {
+                    id: 'dich_vu_4_sl',
+                    default: 0
+                },
+                'dich_vu_4_tt': {
+                    id: 'dich_vu_4_tt',
+                    default: 0,
+                    format: 'currency'
+                },
 
-                'dich_vu_5': { id: 'dich_vu_5', default: 'Dịch vụ khác 2' },
-                'dich_vu_5_dg': { id: 'dich_vu_5_dg', default: 0, format: 'currency' },
-                'dich_vu_5_sl': { id: 'dich_vu_5_sl', default: 0 },
-                'dich_vu_5_tt': { id: 'dich_vu_5_tt', default: 0, format: 'currency' },
+                'dich_vu_5': {
+                    id: 'dich_vu_5',
+                    default: 'Dịch vụ khác 2'
+                },
+                'dich_vu_5_dg': {
+                    id: 'dich_vu_5_dg',
+                    default: 0,
+                    format: 'currency'
+                },
+                'dich_vu_5_sl': {
+                    id: 'dich_vu_5_sl',
+                    default: 0
+                },
+                'dich_vu_5_tt': {
+                    id: 'dich_vu_5_tt',
+                    default: 0,
+                    format: 'currency'
+                },
 
                 // Notes
-                'ghi_chu': { id: 'ghi_chu', default: 'Không có ghi chú.' },
+                'ghi_chu': {
+                    id: 'ghi_chu',
+                    default: 'Không có ghi chú.'
+                },
 
                 // Summary Section
-                'tong_tien': { id: 'tong_tien', default: 0, format: 'currency' },
-                'phat_sinh_khac': { id: 'phat_sinh_khac', default: 0, format: 'currency' },
-                'giam_tru_khac': { id: 'giam_tru_khac', default: 0, format: 'currency' },
-                'no_cu': { id: 'no_cu', default: 0, format: 'currency' },
-                'tong_cong': { id: 'tong_cong', default: 0, format: 'currency' },
-                'da_thanh_toan': { id: 'da_thanh_thong_tin', default: 0, format: 'currency' },
-                'con_lai': { id: 'con_lai', default: 0, format: 'currency' },
-                'han_thanh_toan': { id: 'han_thanh_toan', default: '-- Hạn thanh toán --' },
+                'tong_tien': {
+                    id: 'tong_tien',
+                    default: 0,
+                    format: 'currency'
+                },
+                'phat_sinh_khac': {
+                    id: 'phat_sinh_khac',
+                    default: 0,
+                    format: 'currency'
+                },
+                'giam_tru_khac': {
+                    id: 'giam_tru_khac',
+                    default: 0,
+                    format: 'currency'
+                },
+                'no_cu': {
+                    id: 'no_cu',
+                    default: 0,
+                    format: 'currency'
+                },
+                'tong_cong': {
+                    id: 'tong_cong',
+                    default: 0,
+                    format: 'currency'
+                },
+                'da_thanh_toan': {
+                    id: 'da_thanh_thong_tin',
+                    default: 0,
+                    format: 'currency'
+                },
+                'con_lai': {
+                    id: 'con_lai',
+                    default: 0,
+                    format: 'currency'
+                },
+                'han_thanh_toan': {
+                    id: 'han_thanh_toan',
+                    default: '-- Hạn TT --'
+                },
                 // Payment Information
-                'qr_code': { id: 'qr_code', default: 'https://placehold.co/200x200/A0B0C0/FFFFFF?text=QR+Code' }
+                'qr_code': {
+                    id: 'qr_code',
+                    default: 'https://placehold.co/262x262/A0B0C0/FFFFFF?text=QR+Code'
+                },
+                'chu_tai_khoan': {
+                    id: 'chu_tai_khoan',
+                    default: '--Chủ tài khoản--'
+                },
+                'so_tai_khoan': {
+                    id: 'so_tai_khoan',
+                    default: '--Số tài khoản--'
+                }
             };
 
             // Populate elements based on dataMap
@@ -392,7 +601,8 @@
                         // Apply formatting if specified
                         if (elementInfo.format === 'currency') {
                             value = formatCurrencyVND(value);
-                        } else if (elementInfo.id === 'ngay_tinh_hoa_don' && value === new Date().toLocaleDateString('vi-VN')) {
+                        } else if (elementInfo.id === 'ngay_tinh_hoa_don' && value === new Date()
+                            .toLocaleDateString('vi-VN')) {
                             // If default date is used, make sure it's formatted correctly
                             value = new Date().toLocaleDateString('vi-VN');
                         }
@@ -408,4 +618,5 @@
         });
     </script>
 </body>
+
 </html>
