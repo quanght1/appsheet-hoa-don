@@ -166,3 +166,75 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const params = getUrlParams();
+            
+            // Hiển thị Kỳ thanh toán
+            if (params.ngay_bat_dau && params.ngay_ket_thuc) {
+                document.getElementById('chu_ky_thanh_toan').textContent = `(${params.ngay_bat_dau} - ${params.ngay_ket_thuc})`;
+            }
+
+            // --- XỬ LÝ TIỀN CỌC (HIỆN/ẨN) ---
+            if (params.thu_coc && parseFloat(params.thu_coc) > 0) {
+                document.getElementById('row_thu_coc').style.display = 'table-row';
+                document.getElementById('val_thu_coc').textContent = formatCurrencyVND(params.thu_coc);
+                document.getElementById('tt_thu_coc').textContent = formatCurrencyVND(params.thu_coc);
+            }
+            if (params.tra_coc && parseFloat(params.tra_coc) > 0) {
+                document.getElementById('row_tra_coc').style.display = 'table-row';
+                document.getElementById('val_tra_coc').textContent = formatCurrencyVND(params.tra_coc);
+                document.getElementById('tt_tra_coc').textContent = "- " + formatCurrencyVND(params.tra_coc);
+            }
+
+            const dataMap = {
+                'ky_hoa_don': { id: 'ky_hoa_don' },
+                'khach_thue': { id: 'khach_thue' },
+                'nha_tro': { id: 'nha_tro' },
+                'phong_tro': { id: 'phong_tro' },
+                'ngay_tinh_hoa_don': { id: 'ngay_tinh_hoa_don' },
+                'don_gia_phong': { id: 'don_gia_phong', format: 'currency' },
+                'sl_phong': { id: 'sl_phong' },
+                'thanh_tien_phong': { id: 'thanh_tien_phong', format: 'currency' },
+                'so_dien_dau': { id: 'so_dien_dau' },
+                'so_dien_cuoi': { id: 'so_dien_cuoi' },
+                'don_gia_dien': { id: 'don_gia_dien', format: 'currency' },
+                'so_dien': { id: 'so_dien' },
+                'thanh_tien_dien': { id: 'thanh_tien_dien', format: 'currency' },
+                'so_nuoc_dau': { id: 'so_nuoc_dau' },
+                'so_nuoc_cuoi': { id: 'so_nuoc_cuoi' },
+                'don_gia_nuoc': { id: 'don_gia_nuoc', format: 'currency' },
+                'so_nuoc': { id: 'so_nuoc' },
+                'thanh_tien_nuoc': { id: 'thanh_tien_nuoc', format: 'currency' },
+                'dich_vu_1': { id: 'dich_vu_1' }, 'dich_vu_1_dg': { id: 'dich_vu_1_dg', format: 'currency' }, 'dich_vu_1_sl': { id: 'dich_vu_1_sl' }, 'dich_vu_1_tt': { id: 'dich_vu_1_tt', format: 'currency' },
+                'dich_vu_2': { id: 'dich_vu_2' }, 'dich_vu_2_dg': { id: 'dich_vu_2_dg', format: 'currency' }, 'dich_vu_2_sl': { id: 'dich_vu_2_sl' }, 'dich_vu_2_tt': { id: 'dich_vu_2_tt', format: 'currency' },
+                'dich_vu_3': { id: 'dich_vu_3' }, 'dich_vu_3_dg': { id: 'dich_vu_3_dg', format: 'currency' }, 'dich_vu_3_sl': { id: 'dich_vu_3_sl' }, 'dich_vu_3_tt': { id: 'dich_vu_3_tt', format: 'currency' },
+                'dich_vu_4': { id: 'dich_vu_4' }, 'dich_vu_4_dg': { id: 'dich_vu_4_dg', format: 'currency' }, 'dich_vu_4_sl': { id: 'dich_vu_4_sl' }, 'dich_vu_4_tt': { id: 'dich_vu_4_tt', format: 'currency' },
+                'dich_vu_5': { id: 'dich_vu_5' }, 'dich_vu_5_dg': { id: 'dich_vu_5_dg', format: 'currency' }, 'dich_vu_5_sl': { id: 'dich_vu_5_sl' }, 'dich_vu_5_tt': { id: 'dich_vu_5_tt', format: 'currency' },
+                'ghi_chu': { id: 'ghi_chu' },
+                'tong_tien': { id: 'tong_tien', format: 'currency' },
+                'phat_sinh_khac': { id: 'phat_sinh_khac', format: 'currency' },
+                'giam_tru_khac': { id: 'giam_tru_khac', format: 'currency' },
+                'no_cu': { id: 'no_cu', format: 'currency' },
+                'tong_cong': { id: 'tong_cong', format: 'currency' },
+                'da_thanh_toan': { id: 'da_thanh_thong_tin', format: 'currency' },
+                'con_lai': { id: 'con_lai', format: 'currency' },
+                'han_thanh_toan': { id: 'han_thanh_toan' },
+                'chu_tai_khoan': { id: 'chu_tai_khoan' },
+                'so_tai_khoan': { id: 'so_tai_khoan' }
+            };
+
+            for (const key in dataMap) {
+                const info = dataMap[key];
+                const el = document.getElementById(info.id);
+                if (el) {
+                    let val = params[key] || "";
+                    if (info.format === 'currency') val = formatCurrencyVND(val);
+                    el.textContent = val;
+                }
+            }
+
+            const bankNameEl = document.getElementById('ten_ngan_hang_rut_gon');
+            if (params.ten_ngan_hang) bankNameEl.textContent = params.ten_ngan_hang.split(' ')[0];
+            if (params.qr_code) document.getElementById('qr_code').src = params.qr_code;
+        });
+    </script>
+</body>
+</html>
