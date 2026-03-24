@@ -72,7 +72,25 @@
                         <td class="px-2 py-1 text-right font-medium text-sm" id="thanh_tien_phong">0</td>
                     </tr>
 
-                    <!-- Tiền điện, nước, dịch vụ... (Giữ nguyên các hàng sau) -->
+                    <!-- Thu thêm tiền cọc (Chỉ hiện khi > 0) -->
+                    <tr id="row_thu_coc" style="display:none;">
+                        <td class="px-2 py-1 font-medium text-sm">1.1</td>
+                        <td class="px-2 py-1 text-sm text-blue-700">Tiền đặt cọc (Thu thêm)</td>
+                        <td class="px-2 py-1 text-right text-sm" id="val_thu_coc">0</td>
+                        <td class="px-2 py-1 text-center text-sm">1</td>
+                        <td class="px-2 py-1 text-right font-medium text-sm text-blue-700" id="tt_thu_coc">0</td>
+                    </tr>
+
+                    <!-- Hoàn trả tiền cọc (Chỉ hiện khi > 0) -->
+                    <tr id="row_tra_coc" style="display:none;" class="bg-red-50">
+                        <td class="px-2 py-1 font-medium text-sm">1.2</td>
+                        <td class="px-2 py-1 text-sm text-red-600 font-semibold">Tiền đặt cọc (Hoàn trả)</td>
+                        <td class="px-2 py-1 text-right text-sm text-red-600" id="val_tra_coc">0</td>
+                        <td class="px-2 py-1 text-center text-sm text-red-600">1</td>
+                        <td class="px-2 py-1 text-right font-medium text-sm text-red-600" id="tt_tra_coc">0</td>
+                    </tr>
+
+                    <!-- Electricity -->
                     <tr>
                         <td class="px-2 py-1 font-medium text-sm">2.1</td>
                         <td class="px-2 py-1 text-sm">Tiền điện <span class="block text-xs text-gray-500">Số đầu: <span id="so_dien_dau">0</span>, Số cuối: <span id="so_dien_cuoi">0</span></span></td>
@@ -80,6 +98,8 @@
                         <td class="px-2 py-1 text-center text-sm" id="so_dien">0</td>
                         <td class="px-2 py-1 text-right font-medium text-sm" id="thanh_tien_dien">0</td>
                     </tr>
+
+                    <!-- Water -->
                     <tr>
                         <td class="px-2 py-1 font-medium text-sm">2.2</td>
                         <td class="px-2 py-1 text-sm">Tiền nước <span class="block text-xs text-gray-500">Số đầu: <span id="so_nuoc_dau">0</span>, Số cuối: <span id="so_nuoc_cuoi">0</span></span></td>
@@ -88,6 +108,7 @@
                         <td class="px-2 py-1 text-right font-medium text-sm" id="thanh_tien_nuoc">0</td>
                     </tr>
 
+                    <!-- Services -->
                     <tr class="bg-gray-50"><td class="px-2 py-1 font-bold text-sm" colspan="5">3. Dịch vụ</td></tr>
                     <tr>
                         <td class="px-2 py-1 font-medium text-sm">3.1</td>
@@ -96,7 +117,6 @@
                         <td class="px-2 py-1 text-center text-sm" id="dich_vu_1_sl">0</td>
                         <td class="px-2 py-1 text-right font-medium text-sm" id="dich_vu_1_tt">0</td>
                     </tr>
-                    <!-- Các dịch vụ 2,3,4,5 giữ nguyên ID -->
                     <tr><td class="px-2 py-1 font-medium text-sm">3.2</td><td class="px-2 py-1 text-sm" id="dich_vu_2">-- Dịch vụ 2 --</td><td class="px-2 py-1 text-right text-sm" id="dich_vu_2_dg">0</td><td class="px-2 py-1 text-center text-sm" id="dich_vu_2_sl">0</td><td class="px-2 py-1 text-right font-medium text-sm" id="dich_vu_2_tt">0</td></tr>
                     <tr><td class="px-2 py-1 font-medium text-sm">3.3</td><td class="px-2 py-1 text-sm" id="dich_vu_3">-- Dịch vụ 3 --</td><td class="px-2 py-1 text-right text-sm" id="dich_vu_3_dg">0</td><td class="px-2 py-1 text-center text-sm" id="dich_vu_3_sl">0</td><td class="px-2 py-1 text-right font-medium text-sm" id="dich_vu_3_tt">0</td></tr>
                     <tr><td class="px-2 py-1 font-medium text-sm">3.4</td><td class="px-2 py-1 text-sm" id="dich_vu_4">-- Dịch vụ 4 --</td><td class="px-2 py-1 text-right text-sm" id="dich_vu_4_dg">0</td><td class="px-2 py-1 text-center text-sm" id="dich_vu_4_sl">0</td><td class="px-2 py-1 text-right font-medium text-sm" id="dich_vu_4_tt">0</td></tr>
@@ -146,64 +166,3 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const params = getUrlParams();
-            
-            // Logic xử lý hiển thị Kỳ thanh toán (Ngày BĐ - Ngày KT)
-            if (params.ngay_bat_dau && params.ngay_ket_thuc) {
-                document.getElementById('chu_ky_thanh_toan').textContent = `(${params.ngay_bat_dau} - ${params.ngay_ket_thuc})`;
-            }
-
-            const dataMap = {
-                'ky_hoa_don': { id: 'ky_hoa_don' },
-                'khach_thue': { id: 'khach_thue' },
-                'nha_tro': { id: 'nha_tro' },
-                'phong_tro': { id: 'phong_tro' },
-                'ngay_tinh_hoa_don': { id: 'ngay_tinh_hoa_don' },
-                'don_gia_phong': { id: 'don_gia_phong', format: 'currency' },
-                'sl_phong': { id: 'sl_phong' }, // Hiển thị số tháng lẻ (ví dụ 2.87)
-                'thanh_tien_phong': { id: 'thanh_tien_phong', format: 'currency' },
-                'so_dien_dau': { id: 'so_dien_dau' },
-                'so_dien_cuoi': { id: 'so_dien_cuoi' },
-                'don_gia_dien': { id: 'don_gia_dien', format: 'currency' },
-                'so_dien': { id: 'so_dien' },
-                'thanh_tien_dien': { id: 'thanh_tien_dien', format: 'currency' },
-                'so_nuoc_dau': { id: 'so_nuoc_dau' },
-                'so_nuoc_cuoi': { id: 'so_nuoc_cuoi' },
-                'don_gia_nuoc': { id: 'don_gia_nuoc', format: 'currency' },
-                'so_nuoc': { id: 'so_nuoc' },
-                'thanh_tien_nuoc': { id: 'thanh_tien_nuoc', format: 'currency' },
-                'dich_vu_1': { id: 'dich_vu_1' }, 'dich_vu_1_dg': { id: 'dich_vu_1_dg', format: 'currency' }, 'dich_vu_1_sl': { id: 'dich_vu_1_sl' }, 'dich_vu_1_tt': { id: 'dich_vu_1_tt', format: 'currency' },
-                'dich_vu_2': { id: 'dich_vu_2' }, 'dich_vu_2_dg': { id: 'dich_vu_2_dg', format: 'currency' }, 'dich_vu_2_sl': { id: 'dich_vu_2_sl' }, 'dich_vu_2_tt': { id: 'dich_vu_2_tt', format: 'currency' },
-                'dich_vu_3': { id: 'dich_vu_3' }, 'dich_vu_3_dg': { id: 'dich_vu_3_dg', format: 'currency' }, 'dich_vu_3_sl': { id: 'dich_vu_3_sl' }, 'dich_vu_3_tt': { id: 'dich_vu_3_tt', format: 'currency' },
-                'dich_vu_4': { id: 'dich_vu_4' }, 'dich_vu_4_dg': { id: 'dich_vu_4_dg', format: 'currency' }, 'dich_vu_4_sl': { id: 'dich_vu_4_sl' }, 'dich_vu_4_tt': { id: 'dich_vu_4_tt', format: 'currency' },
-                'dich_vu_5': { id: 'dich_vu_5' }, 'dich_vu_5_dg': { id: 'dich_vu_5_dg', format: 'currency' }, 'dich_vu_5_sl': { id: 'dich_vu_5_sl' }, 'dich_vu_5_tt': { id: 'dich_vu_5_tt', format: 'currency' },
-                'ghi_chu': { id: 'ghi_chu' },
-                'tong_tien': { id: 'tong_tien', format: 'currency' },
-                'phat_sinh_khac': { id: 'phat_sinh_khac', format: 'currency' },
-                'giam_tru_khac': { id: 'giam_tru_khac', format: 'currency' },
-                'no_cu': { id: 'no_cu', format: 'currency' },
-                'tong_cong': { id: 'tong_cong', format: 'currency' },
-                'da_thanh_toan': { id: 'da_thanh_thong_tin', format: 'currency' },
-                'con_lai': { id: 'con_lai', format: 'currency' },
-                'han_thanh_toan': { id: 'han_thanh_toan' },
-                'chu_tai_khoan': { id: 'chu_tai_khoan' },
-                'so_tai_khoan': { id: 'so_tai_khoan' }
-            };
-
-            for (const key in dataMap) {
-                const info = dataMap[key];
-                const el = document.getElementById(info.id);
-                if (el) {
-                    let val = params[key] || "";
-                    if (info.format === 'currency') val = formatCurrencyVND(val);
-                    el.textContent = val;
-                }
-            }
-
-            // Xử lý Ngân hàng và QR Code
-            const bankNameEl = document.getElementById('ten_ngan_hang_rut_gon');
-            if (params.ten_ngan_hang) bankNameEl.textContent = params.ten_ngan_hang.split(' ')[0];
-            if (params.qr_code) document.getElementById('qr_code').src = params.qr_code;
-        });
-    </script>
-</body>
-</html>
