@@ -65,7 +65,7 @@
                         <td class="px-2 py-1 font-medium text-sm">1</td>
                         <td class="px-2 py-1 font-medium text-sm">
                             Tiền nhà
-                            <span class="block text-[11px] text-gray-400 italic" id="chu_ky_thanh_toan"></span>
+                            <span class="block text-xs text-gray-500 italic" id="chu_ky_thanh_toan"></span>
                         </td>
                         <td class="px-2 py-1 text-right text-sm" id="don_gia_phong">0</td>
                         <td class="px-2 py-1 text-center text-sm" id="sl_phong">1</td>
@@ -78,7 +78,7 @@
                         <td class="px-2 py-1 text-sm text-blue-600 italic">Tiền đặt cọc (Thu thêm)</td>
                         <td class="px-2 py-1 text-right text-sm" id="val_thu_coc">0</td>
                         <td class="px-2 py-1 text-center text-sm">1</td>
-                        <td class="px-2 py-1 text-right font-medium text-sm" id="tt_thu_coc">0</td>
+                        <td class="px-2 py-1 text-right font-medium text-sm text-blue-700" id="tt_thu_coc">0</td>
                     </tr>
 
                     <!-- Hoàn trả tiền cọc -->
@@ -97,6 +97,15 @@
                         <td class="px-2 py-1 text-right text-sm" id="don_gia_dien">0</td>
                         <td class="px-2 py-1 text-center text-sm" id="so_dien">0</td>
                         <td class="px-2 py-1 text-right font-medium text-sm" id="thanh_tien_dien">0</td>
+                    </tr>
+
+                    <!-- Phí QLTB điện (STT 2.1a - Tự ẩn nếu bằng 0) -->
+                    <tr id="row_qltb_dien" style="display:none;">
+                        <td class="px-2 py-1 font-medium text-sm">2.1a</td>
+                        <td class="px-2 py-1 text-sm text-gray-500 italic">Phí QLTB điện</td>
+                        <td class="px-2 py-1 text-right text-sm" id="dg_qltb_dien">0</td>
+                        <td class="px-2 py-1 text-center text-sm" id="sl_qltb_dien">0</td>
+                        <td class="px-2 py-1 text-right font-medium text-sm" id="tt_qltb_dien">0</td>
                     </tr>
 
                     <!-- Water -->
@@ -200,12 +209,20 @@
             if (params.thu_coc && parseFloat(params.thu_coc) > 0) {
                 document.getElementById('row_thu_coc').style.display = 'table-row';
                 document.getElementById('val_thu_coc').textContent = formatCurrencyVND(params.thu_coc);
-                document.getElementById('tt_thu_coc').textContent = formatCurrencyVND(params.thu_coc);
+                document.getElementById('tt_thu_coc').textContent = fC(params.thu_coc);
             }
             if (params.tra_coc && parseFloat(params.tra_coc) > 0) {
                 document.getElementById('row_tra_coc').style.display = 'table-row';
                 document.getElementById('val_tra_coc').textContent = formatCurrencyVND(params.tra_coc);
                 document.getElementById('tt_tra_coc').textContent = "- " + formatCurrencyVND(params.tra_coc);
+            }
+
+            // XỬ LÝ PHÍ QLTB ĐIỆN (STT 2.1a)
+            if (params.qltb_dien_tt && parseFloat(params.qltb_dien_tt) > 0) {
+                document.getElementById('row_qltb_dien').style.display = 'table-row';
+                document.getElementById('dg_qltb_dien').textContent = formatCurrencyVND(params.qltb_dien_dg);
+                document.getElementById('sl_qltb_dien').textContent = params.so_dien; // Sử dụng chung số lượng điện
+                document.getElementById('tt_qltb_dien').textContent = formatCurrencyVND(params.qltb_dien_tt);
             }
 
             // Mapping dữ liệu chính
