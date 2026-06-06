@@ -72,7 +72,7 @@
                         <td class="px-2 py-1 text-right font-medium text-sm" id="thanh_tien_phong">0</td>
                     </tr>
 
-                    <!-- Thu thêm tiền cọc -->
+                    <!-- Thu thêm tiền cọc (Chỉ hiện khi > 0) -->
                     <tr id="row_thu_coc" style="display:none;">
                         <td class="px-2 py-1 font-medium text-sm text-blue-600 italic">1.1</td>
                         <td class="px-2 py-1 text-sm text-blue-600 italic">Tiền đặt cọc (Thu thêm)</td>
@@ -81,7 +81,7 @@
                         <td class="px-2 py-1 text-right font-medium text-sm text-blue-700" id="tt_thu_coc">0</td>
                     </tr>
 
-                    <!-- Hoàn trả tiền cọc -->
+                    <!-- Hoàn trả tiền cọc (Chỉ hiện khi > 0) -->
                     <tr id="row_tra_coc" style="display:none;" class="bg-red-50">
                         <td class="px-2 py-1 font-medium text-sm text-red-600 italic">1.2</td>
                         <td class="px-2 py-1 text-sm text-red-600 italic font-semibold">Tiền đặt cọc (Hoàn trả)</td>
@@ -209,7 +209,7 @@
             if (params.thu_coc && parseFloat(params.thu_coc) > 0) {
                 document.getElementById('row_thu_coc').style.display = 'table-row';
                 document.getElementById('val_thu_coc').textContent = formatCurrencyVND(params.thu_coc);
-                document.getElementById('tt_thu_coc').textContent = fC(params.thu_coc);
+                document.getElementById('tt_thu_coc').textContent = formatCurrencyVND(params.thu_coc);
             }
             if (params.tra_coc && parseFloat(params.tra_coc) > 0) {
                 document.getElementById('row_tra_coc').style.display = 'table-row';
@@ -290,4 +290,5 @@
         });
     </script>
 </body>
+
 </html>
